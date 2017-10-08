@@ -10,6 +10,7 @@ namespace MediatRSample.Domain
         [Required]
         [StringLength(50)]
         public string Name { get; set; }
+        [DataType(DataType.Currency)]
         public decimal Price { get; set; }
         public int Stock { get; set; }
     }
