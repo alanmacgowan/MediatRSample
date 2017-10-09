@@ -7,13 +7,12 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
-using Microsoft.EntityFrameworkCore.ValueGeneration;
 using System;
 
 namespace MediatRSample.Migrations
 {
     [DbContext(typeof(OrderProcessingContext))]
-    [Migration("20171009015037_InitialCreate")]
+    [Migration("20171009025314_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,60 +45,15 @@ namespace MediatRSample.Migrations
                     b.ToTable("Addresses");
                 });
 
-            modelBuilder.Entity("MediatRSample.Domain.Order", b =>
+            modelBuilder.Entity("MediatRSample.Domain.Customer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("OrderID");
+                        .HasColumnName("CustomerID");
 
-                    b.Property<int>("AddressId");
+                    b.Property<int>("AddressID");
 
-                    b.Property<int>("CustomerId");
-
-                    b.Property<DateTime>("OrderDate");
-
-                    b.Property<DateTime?>("ShippedDate");
-
-                    b.Property<int>("Status");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AddressId");
-
-                    b.HasIndex("CustomerId");
-
-                    b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("MediatRSample.Domain.OrderItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("OrderId");
-
-                    b.Property<decimal>("Price");
-
-                    b.Property<int>("ProductId");
-
-                    b.Property<int>("Qty");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("OrderItems");
-                });
-
-            modelBuilder.Entity("MediatRSample.Domain.Person", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired();
+                    b.Property<string>("Email");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -112,9 +66,56 @@ namespace MediatRSample.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("People");
+                    b.HasIndex("AddressID");
 
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Person");
+                    b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("MediatRSample.Domain.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("OrderID");
+
+                    b.Property<int>("AddressID");
+
+                    b.Property<int>("CustomerID");
+
+                    b.Property<DateTime>("OrderDate");
+
+                    b.Property<DateTime?>("ShippedDate");
+
+                    b.Property<int>("Status");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddressID");
+
+                    b.HasIndex("CustomerID");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("MediatRSample.Domain.OrderItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("OrderID");
+
+                    b.Property<decimal>("Price");
+
+                    b.Property<int>("ProductID");
+
+                    b.Property<int>("Qty");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderID");
+
+                    b.HasIndex("ProductID");
+
+                    b.ToTable("OrderItems");
                 });
 
             modelBuilder.Entity("MediatRSample.Domain.Product", b =>
@@ -138,51 +139,36 @@ namespace MediatRSample.Migrations
 
             modelBuilder.Entity("MediatRSample.Domain.Customer", b =>
                 {
-                    b.HasBaseType("MediatRSample.Domain.Person");
-
-                    b.Property<int>("AddressId");
-
-                    b.Property<string>("Email");
-
-                    b.HasIndex("AddressId");
-
-                    b.ToTable("Customer");
-
-                    b.HasDiscriminator().HasValue("Customer");
+                    b.HasOne("MediatRSample.Domain.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressID")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("MediatRSample.Domain.Order", b =>
                 {
                     b.HasOne("MediatRSample.Domain.Address", "DispatchAddress")
                         .WithMany()
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("AddressID")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("MediatRSample.Domain.Customer", "Customer")
                         .WithMany("Orders")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CustomerID")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("MediatRSample.Domain.OrderItem", b =>
                 {
                     b.HasOne("MediatRSample.Domain.Order", "Order")
                         .WithMany("OrderItems")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("OrderID")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("MediatRSample.Domain.Product", "Product")
                         .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("MediatRSample.Domain.Customer", b =>
-                {
-                    b.HasOne("MediatRSample.Domain.Address", "Address")
-                        .WithMany()
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ProductID")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
         }

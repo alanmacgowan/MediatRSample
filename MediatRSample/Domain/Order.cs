@@ -9,9 +9,9 @@ namespace MediatRSample.Domain
     {
         [Column("OrderID")]
         public int Id { get; set; }
-        public int CustomerId { get; set; }
+        public int CustomerID { get; set; }
         public virtual Customer Customer { get; set; }
-        public int AddressId { get; set; }
+        public int AddressID { get; set; }
         public virtual Address DispatchAddress { get; set; }
 
         [DataType(DataType.Date)]

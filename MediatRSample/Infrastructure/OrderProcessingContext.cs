@@ -1,6 +1,7 @@
 ﻿using MediatRSample.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace MediatRSample.Infrastructure
@@ -18,13 +19,15 @@ namespace MediatRSample.Infrastructure
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<Person> People { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                relationship.DeleteBehavior = DeleteBehavior.Restrict;
+            }
 
-            //modelBuilder.Entity<Product>().MapToStoredProcedures();
+            base.OnModelCreating(modelBuilder);
         }
 
         public void BeginTransaction()
