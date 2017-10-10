@@ -26,7 +26,9 @@ namespace MediatRSample
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddMvc();
+            services.AddMvc()
+                    .AddFeatureFolders();
+
             services.AddDbContext<OrderProcessingContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 

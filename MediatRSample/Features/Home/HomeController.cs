@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace MediatRSample.Controllers
+namespace MediatRSample.Features.Home
 {
     public class HomeController : Controller
     {
