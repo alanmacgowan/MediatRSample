@@ -1,4 +1,5 @@
-﻿using MediatRSample.Infrastructure;
+﻿using MediatR;
+using MediatRSample.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -28,6 +29,8 @@ namespace MediatRSample
             // Add framework services.
             services.AddMvc()
                     .AddFeatureFolders();
+
+            services.AddMediatR(typeof(Startup));
 
             services.AddDbContext<OrderProcessingContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
