@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using MediatRSample.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,8 +28,17 @@ namespace MediatRSample
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddMvc()
+            services.AddMvc(opt =>
+                    {
+                        opt.Filters.Add(typeof(DbContextTransactionFilter));
+                        opt.Filters.Add(typeof(ValidatorActionFilter));
+                        opt.ModelBinderProviders.Insert(0, new EntityModelBinderProvider());
+                    })
                     .AddFeatureFolders();
+
+            services.AddAutoMapper(typeof(Startup));
+
+            Mapper.AssertConfigurationIsValid();
 
             services.AddMediatR(typeof(Startup));
 

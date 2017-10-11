@@ -1,0 +1,59 @@
+﻿@model Index.Result
+@using System.Threading.Tasks
+@using MediatRSample.Features.Customer
+
+@{
+
+    ViewBag.Title = "Customers";
+}
+
+<h2>Students</h2>
+
+<p>
+    @*@Html.ActionLink("Create New", nameof(CustomerController.Create))*@
+</p>
+<form method="GET">
+    <p>
+        Find by name: @Html.DisplayFor(m => m.SearchString)
+        <input type="submit" value="Search" />
+    </p>
+</form>
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("Last Name", nameof(CustomerController.Index), new Index.Query { SortOrder = Model.NameSortParm, CurrentFilter = Model.CurrentFilter })
+        </th>
+        <th>
+            First Name
+        </th>
+        <th>
+            @Html.ActionLink("Email", nameof(CustomerController.Index), new Index.Query { SortOrder = Model.EmailSortParm, CurrentFilter = Model.CurrentFilter })
+        </th>
+        <th></th>
+    </tr>
+
+
+    @{ int i = 0; }
+    @foreach (var item in Model.Results)
+            {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Results[i].LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Results[i].FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Results[i].Email)
+            </td>
+            <td>
+                @*@Html.ActionLink("Edit", nameof(CustomerController.Edit), new Edit.Query { Id = item.ID }) |
+                @Html.ActionLink("Details", nameof(CustomerController.Details), new Details.Query { Id = item.ID }) |
+                @Html.ActionLink("Delete", nameof(CustomerController.Delete), new Delete.Query { Id = item.ID })*@
+            </td>
+        </tr>
+        i++;
+    }
+
+</table>
+<br />
