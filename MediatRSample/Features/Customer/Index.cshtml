@@ -39,13 +39,13 @@
             {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => modelItem.Results[i].LastName)
+                    @Html.DisplayFor(m => m.Results[i].LastName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => modelItem.Results[i].FirstName)
+                    @Html.DisplayFor(m => m.Results[i].FirstName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => modelItem.Results[i].Email)
+                    @Html.DisplayFor(m => m.Results[i].Email)
                 </td>
                 <td>
                     @*@Html.ActionLink("Edit", nameof(CustomerController.Edit), new Edit.Query { Id = item.ID }) |
