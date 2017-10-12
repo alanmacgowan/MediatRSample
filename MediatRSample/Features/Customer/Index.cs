@@ -23,6 +23,7 @@ namespace MediatRSample.Features.Customer
         {
             public string CurrentSort { get; set; }
             public string NameSortParm { get; set; }
+            public string FirstNameSortParm { get; set; }
             public string EmailSortParm { get; set; }
             public string CurrentFilter { get; set; }
             public string SearchString { get; set; }
@@ -54,6 +55,7 @@ namespace MediatRSample.Features.Customer
                 {
                     CurrentSort = message.SortOrder,
                     NameSortParm = String.IsNullOrEmpty(message.SortOrder) ? "name_desc" : "",
+                    FirstNameSortParm = message.SortOrder == "FirstName" ? "firstname_desc" : "FirstName",
                     EmailSortParm = message.SortOrder == "Email" ? "email_desc" : "Email",
                 };
 
@@ -76,6 +78,12 @@ namespace MediatRSample.Features.Customer
                 {
                     case "name_desc":
                         customers = customers.OrderByDescending(s => s.LastName);
+                        break;
+                    case "FirstName":
+                        customers = customers.OrderBy(s => s.FirstName);
+                        break;
+                    case "firstname_desc":
+                        customers = customers.OrderByDescending(s => s.FirstName);
                         break;
                     case "Email":
                         customers = customers.OrderBy(s => s.Email);
