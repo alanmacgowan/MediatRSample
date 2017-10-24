@@ -2,6 +2,10 @@
 Sample app using Asp.net core and MediatR
 
 Using:
-* asp.net core MVC
+* ASP.NET Core MVC
+* Entity Framework Core (w/ Migrations)
 * MediatR
 * FluentValidation
+* AutoMapper
+* AddFeatureFolders
+
