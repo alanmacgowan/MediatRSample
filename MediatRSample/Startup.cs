@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation.AspNetCore;
 using MediatR;
 using MediatRSample.Infrastructure;
 using Microsoft.AspNetCore.Builder;
@@ -34,7 +35,9 @@ namespace MediatRSample
                         opt.Filters.Add(typeof(ValidatorActionFilter));
                         opt.ModelBinderProviders.Insert(0, new EntityModelBinderProvider());
                     })
-                    .AddFeatureFolders();
+                    .AddFeatureFolders()
+                    .AddFluentValidation(cfg => { cfg.RegisterValidatorsFromAssemblyContaining<Startup>(); });
+
 
             services.AddAutoMapper(typeof(Startup));
 
