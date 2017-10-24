@@ -2,8 +2,8 @@
 Sample app using Asp.net core and MediatR
 
 Using:
-* ASP.NET Core MVC
-* Entity Framework Core (w/ Migrations)
+* [ASP.NET Core MVC](https://github.com/aspnet/Mvc)
+* [Entity Framework Core (w/ Migrations)](https://github.com/aspnet/EntityFrameworkCore)
 * [MediatR](https://github.com/jbogard/MediatR)
 * [FluentValidation](https://github.com/JeremySkinner/FluentValidation)
 * [AutoMapper](https://github.com/AutoMapper/AutoMapper)
