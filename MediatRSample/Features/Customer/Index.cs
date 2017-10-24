@@ -59,11 +59,6 @@ namespace MediatRSample.Features.Customer
                     EmailSortParm = message.SortOrder == "Email" ? "email_desc" : "Email",
                 };
 
-                if (message.SearchString == null)
-                {
-                    message.SearchString = message.CurrentFilter;
-                }
-
                 model.CurrentFilter = message.SearchString;
                 model.SearchString = message.SearchString;
 

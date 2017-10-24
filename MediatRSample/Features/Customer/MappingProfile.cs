@@ -9,6 +9,8 @@ namespace MediatRSample.Features.Customer
         public MappingProfile()
         {
             CreateMap<Customer, Index.Model>();
+            CreateMap<Create.Command, Customer>(MemberList.Source);
+
         }
 
     }

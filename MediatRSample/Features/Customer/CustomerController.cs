@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using MediatRSample.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -22,5 +23,21 @@ namespace MediatRSample.Features.Customer
 
             return View(model);
         }
+
+        public IActionResult Create()
+        {
+            return View(new Create.Command());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Create.Command command)
+        {
+            await _mediator.Send(command);
+
+            return this.RedirectToActionJson(nameof(Index));
+        }
+
+
     }
 }
