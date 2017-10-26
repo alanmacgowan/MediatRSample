@@ -38,6 +38,21 @@ namespace MediatRSample.Features.Customer
             return this.RedirectToActionJson(nameof(Index));
         }
 
+        public async Task<IActionResult> Edit(Edit.Query query)
+        {
+            var model = await _mediator.Send(query);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(Edit.Command command)
+        {
+            await _mediator.Send(command);
+
+            return this.RedirectToActionJson(nameof(Index));
+        }
 
     }
 }

@@ -51,9 +51,9 @@
                     @Html.DisplayFor(m => m.Results[i].Email)
                 </td>
                 <td>
-                    @*@Html.ActionLink("Edit", nameof(CustomerController.Edit), new Edit.Query { Id = item.ID }) |
-                        @Html.ActionLink("Details", nameof(CustomerController.Details), new Details.Query { Id = item.ID }) |
-                        @Html.ActionLink("Delete", nameof(CustomerController.Delete), new Delete.Query { Id = item.ID })*@
+                    @Html.ActionLink("Edit", nameof(CustomerController.Edit), new Edit.Query { Id = item.ID }) @*|
+    @Html.ActionLink("Details", nameof(CustomerController.Details), new Details.Query { Id = item.ID }) |
+    @Html.ActionLink("Delete", nameof(CustomerController.Delete), new Delete.Query { Id = item.ID })*@
                 </td>
             </tr>
             i++;
