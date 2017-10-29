@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  mediatrsample:
+    image: mediatrsample
+    build:
+      context: ./MediatRSample
+      dockerfile: Dockerfile
