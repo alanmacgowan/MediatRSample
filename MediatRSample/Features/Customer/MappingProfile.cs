@@ -11,6 +11,7 @@ namespace MediatRSample.Features.Customer
             CreateMap<Customer, Index.Model>();
             CreateMap<Create.Command, Customer>(MemberList.Source);
             CreateMap<Customer, Edit.Command>().ReverseMap();
+            CreateMap<Customer, Details.Model>();
         }
 
     }

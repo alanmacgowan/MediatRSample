@@ -54,5 +54,11 @@ namespace MediatRSample.Features.Customer
             return this.RedirectToActionJson(nameof(Index));
         }
 
+        public async Task<IActionResult> Details(Details.Query query)
+        {
+            var model = await _mediator.Send(query);
+
+            return View(model);
+        }
     }
 }
